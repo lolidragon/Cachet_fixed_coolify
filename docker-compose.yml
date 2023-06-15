@@ -1,5 +1,8 @@
 version: "3.5"
 
+networks:
+  cachet_status:
+
 volumes:
   cachet_postgres_data:
 
@@ -12,6 +15,8 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     restart: always
+    networks:
+      - cachet_status
   cachet:
     build:
       context: .
@@ -36,4 +41,6 @@ services:
       - DEBUG=false
     depends_on:
       - postgres
+    networks:
+      - cachet_status
     restart: on-failure
